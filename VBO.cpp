@@ -37,9 +37,9 @@ VBO::~VBO()
 	al_destroy_vertex_decl(vtxdecl_);
 }
 
-void VBO::draw()
+void VBO::draw(ALLEGRO_BITMAP *tex)
 {
-	al_draw_vertex_buffer(vbo_, NULL, 0, size_, ALLEGRO_PRIM_TRIANGLE_LIST);
+	al_draw_vertex_buffer(vbo_, tex, 0, size_, ALLEGRO_PRIM_TRIANGLE_LIST);
 }
 
 VBO *VBO::Create()

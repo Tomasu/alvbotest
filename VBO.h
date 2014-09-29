@@ -14,7 +14,7 @@ class VBO
 	public:
 		static VBO *Create();
 		
-		void draw();
+		void draw(ALLEGRO_BITMAP *);
 		
 	protected:
 		VBO(float *data, uint32_t size);

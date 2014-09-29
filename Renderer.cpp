@@ -149,7 +149,7 @@ init_failed:
 
 void Renderer::run()
 {
-	cam_ = {0, 0, 0, 0, 0, 0, 0};
+	cam_ = {0, 0, -100, 0, 0, 0, 0};
 	memset(key_state_, 0, sizeof(key_state_) * sizeof(key_state_[0]));
 	
 	al_start_timer(tmr_);
@@ -267,8 +267,8 @@ void Renderer::draw()
 	
 	glBindVertexArray(vao_);
 	
-	setShaderSampler(tex_);
-	vbo_->draw();
+	//setShaderSampler(tex_);
+	vbo_->draw(tex_);
 	
 	//al_use_shader(nullptr);
 	

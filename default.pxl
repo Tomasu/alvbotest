@@ -34,7 +34,8 @@ void main()
 	vec4 anothervar = color0;
 	
   // if(floor(varying_tx_page+0.5) == 1.0)
-		gl_FragColor = texture2D(atlas_sheet_0, varying_texcoord);
+		gl_FragColor = al_color;// texture2D(atlas_sheet_0, varying_texcoord);
+		//gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 //	else if(varying_tx_page == 2.0)
 //		gl_FragColor = color1;
 //	else if(varying_tx_page  == 3.0)

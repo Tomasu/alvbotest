@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include "CustomVertex.h"
+#include "Debug.h"
 
 Cube::Cube()
 {
@@ -76,7 +77,9 @@ uint32_t Cube::toVerticies(float *buff, double xoff, double zoff, double yoff, d
 		*ptr = cube[idx+2] + zoff; ptr++;
 		*ptr = (cube[idx] + 0.5) * tx_fact + tx_x; ptr++;
 		*ptr = (cube[idx+1] + 0.5) * tx_fact + tx_y; ptr++;
-		*ptr = tx_page; ptr++;
+		*ptr = tx_page;
+		
+		//Debug("v[%i]: %f,%f,%f,%f,%f,%f", *(ptr-5), *(ptr-4), *(ptr-3), *(ptr-2), *(ptr-1), *ptr);
 	}
 	
 	return NUM_VERTS;
