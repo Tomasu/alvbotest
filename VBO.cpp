@@ -44,7 +44,7 @@ void VBO::draw(ALLEGRO_BITMAP *tex)
 
 VBO *VBO::Create()
 {
-	uint32_t DATA_SIZE = 16 * 16 * 16 * 36 * sizeof(CUSTOM_VERTEX);
+	uint32_t DATA_SIZE = /*16 * 16 * 16 **/ 36 * sizeof(CUSTOM_VERTEX) ;
 	
 	float *data = new float[DATA_SIZE];
 	if(!data)
@@ -60,6 +60,7 @@ VBO *VBO::Create()
 	
 	uint32_t total_size = 0;
 
+	/*
 	for(int dy = 0; dy < 16; dy++)
 	{
 		for(int dz = 0; dz < 16; dz++)
@@ -88,7 +89,12 @@ VBO *VBO::Create()
 				delete cube;
 			}
 		}
-	}
+	}*/
+	
+	Cube *cube = Cube::Create();
+	float tx_fact = 0.0, tx_page = 1.0, tx_x = 0.0, tx_y = 0.0;
+	uint32_t num_idx = cube->toVerticies(dptr, xPos, zPos, y, tx_fact, tx_x, tx_y, tx_page);
+	total_size += num_idx;
 	
 	VBO *cdata = new VBO(data, total_size);
 	delete[] data;

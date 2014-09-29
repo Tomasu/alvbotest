@@ -86,7 +86,7 @@ bool Renderer::init()
 	al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE | ALLEGRO_OPENGL_3_0);
 	al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_REQUIRE);
    al_set_new_display_option(ALLEGRO_SAMPLES, 4, ALLEGRO_REQUIRE);
-
+	al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 24, ALLEGRO_REQUIRE);
 	dpy = al_create_display(1024, 768);
 	
 	if(!dpy)
@@ -119,10 +119,17 @@ bool Renderer::init()
 	al_register_event_source(queue, al_get_display_event_source(dpy));
 	al_register_event_source(queue, al_get_timer_event_source(tmr));
 	
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_CULL_FACE);
+
 	queue_ = queue;
 	tmr_ = tmr;
 	dpy_ = dpy;
 	tex_ = bmp;
+	
+	//glFrontFace(GL_CCW);
 	
 	vbo_ = VBO::Create();
 	
@@ -166,12 +173,13 @@ void Renderer::run()
 		{
          redraw = true;
 			cam_.rx = 1.0;
+			//cam_.ry = 1.0;
 			
 			if(key_state_[ALLEGRO_KEY_UP])
-				cam_.z+=0.4;
+				cam_.z+=0.5;
 			
 			if(key_state_[ALLEGRO_KEY_DOWN])
-				cam_.z-=0.4;
+				cam_.z-=0.5;
 			
 			if(key_state_[ALLEGRO_KEY_LEFT])
 				cam_.ra += 0.01;
@@ -237,6 +245,8 @@ void Renderer::setupProjection(ALLEGRO_TRANSFORM *m)
 
 void Renderer::draw()
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	//ALLEGRO_STATE state;
 	//al_store_state(&state, ALLEGRO_STATE_TRANSFORM);
 	
@@ -261,10 +271,12 @@ void Renderer::draw()
 	}
 	
 	al_identity_transform(&trans);
-	al_translate_transform_3d(&trans, cam_.x, cam_.y, cam_.z);
-	al_rotate_transform_3d(&trans, cam_.rx, cam_.ry, cam_.rz, cam_.ra);
 	setupProjection(&trans);
 	
+	al_identity_transform(&trans);
+	al_rotate_transform_3d(&trans, cam_.rx, cam_.ry, cam_.rz, cam_.ra);
+	al_translate_transform_3d(&trans, cam_.x, cam_.y, cam_.z);
+	al_use_transform(&trans);
 	glBindVertexArray(vao_);
 	
 	//setShaderSampler(tex_);
