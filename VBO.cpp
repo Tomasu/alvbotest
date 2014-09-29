@@ -28,7 +28,7 @@ VBO::VBO(float *data, uint32_t size) : vbo_(0), size_(size)
 	if(!vbo_)
 		Debug("failed to create vertex buffer :(");
 	
-	Debug("new chunk: size:%.02fMB", ((double)size_*sizeof(CUSTOM_VERTEX))/1024.0/1024.0);
+	Debug("new VBO: size:%.02fMB", ((double)size_*sizeof(CUSTOM_VERTEX))/1024.0/1024.0);
 }
 
 VBO::~VBO()
@@ -42,13 +42,15 @@ void VBO::draw()
 	al_draw_vertex_buffer(vbo_, NULL, 0, size_, ALLEGRO_PRIM_TRIANGLE_LIST);
 }
 
-VBO *VBO::Create(ALLEGRO_BITMAP *tex)
+VBO *VBO::Create()
 {
-	uint32_t DATA_SIZE = 16 * 16 * 16 * sizeof(CUSTOM_VERTEX);
+	uint32_t DATA_SIZE = 16 * 16 * 16 * 36 * sizeof(CUSTOM_VERTEX);
 	
 	float *data = new float[DATA_SIZE];
 	if(!data)
 		return nullptr;
+	
+	memset(data, 0, sizeof(float) * DATA_SIZE);
 	
 	float *dptr = data;
 	
@@ -70,8 +72,6 @@ VBO *VBO::Create(ALLEGRO_BITMAP *tex)
 				if(!cube)
 					continue;
 				
-				std::string texName = "texture.png";
-		
 				tx_page = 1.0;
 				//Debug("tx_page: %f", tx_page);
 				tx_fact = 1.0;
@@ -79,9 +79,11 @@ VBO *VBO::Create(ALLEGRO_BITMAP *tex)
 				tx_y = 0.0 * tx_fact;
 				
 				uint32_t num_idx = cube->toVerticies(dptr, xPos + dx, zPos + dz, y + dy, tx_fact, tx_x, tx_y, tx_page);
-				//Debug("%s nidx: %i", BlockName(block_data[idx], 0), num_idx);
+				Debug("nidx: %i", num_idx);
 				dptr += num_idx*sizeof(CUSTOM_VERTEX);
 				total_size += num_idx;
+				if(total_size >= DATA_SIZE)
+					Debug("total_size(%i) > DATA_SIZE(%i)", total_size, DATA_SIZE);
 				
 				delete cube;
 			}

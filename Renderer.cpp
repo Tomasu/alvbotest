@@ -9,6 +9,7 @@
 
 #include "Renderer.h"
 #include "Debug.h"
+#include "VBO.h"
 
 Renderer::Renderer() : queue_(nullptr), tmr_(nullptr), dpy_(nullptr)
 {
@@ -122,6 +123,8 @@ bool Renderer::init()
 	tmr_ = tmr;
 	dpy_ = dpy;
 	tex_ = bmp;
+	
+	vbo_ = VBO::Create();
 	
 	// initial clear display
 	// make things look purdy
@@ -264,7 +267,8 @@ void Renderer::draw()
 	
 	glBindVertexArray(vao_);
 	
-	
+	setShaderSampler(tex_);
+	vbo_->draw();
 	
 	//al_use_shader(nullptr);
 	

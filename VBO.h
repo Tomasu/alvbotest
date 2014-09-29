@@ -12,7 +12,7 @@ class Cube;
 class VBO
 {
 	public:
-		static VBO *Create(ALLEGRO_BITMAP *tex);
+		static VBO *Create();
 		
 		void draw();
 		

@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <utility>
 #include <allegro5/allegro.h>
+class VBO;
 
 class Renderer
 {
@@ -32,6 +33,8 @@ class Renderer
 		ALLEGRO_DISPLAY *dpy_;
 		ALLEGRO_SHADER *prg_;
 		ALLEGRO_BITMAP *tex_;
+		
+		VBO *vbo_;
 		
 		struct { 
 			double x, y, z;
