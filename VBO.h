@@ -7,6 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <vector>
 
+class CUSTOM_VERTEX;
 class Cube;
 
 class VBO
@@ -17,7 +18,7 @@ class VBO
 		void draw(ALLEGRO_BITMAP *);
 		
 	protected:
-		VBO(float *data, uint32_t size);
+		VBO(CUSTOM_VERTEX *data, uint32_t size);
 		~VBO();
 		
 	private:

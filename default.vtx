@@ -7,7 +7,7 @@ uniform mat4 al_projview_matrix;
 
 varying vec4 varying_color;
 varying vec2 varying_texcoord;
-varying float varying_tx_page;
+//varying float varying_tx_page;
 
 uniform sampler2D atlas_sheet_0;
 //uniform sampler2D atlas_sheet_1;
@@ -16,7 +16,7 @@ uniform sampler2D atlas_sheet_0;
 
 void main()
 {
-	varying_tx_page = 1.0;
+	//varying_tx_page = 1.0;
    //varying_color = al_color;
    varying_texcoord = al_texcoord;
    gl_Position = al_projview_matrix * al_pos;

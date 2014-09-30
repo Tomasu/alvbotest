@@ -121,7 +121,7 @@ bool Renderer::init()
 	
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LEQUAL);
+	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
 	queue_ = queue;
@@ -129,7 +129,7 @@ bool Renderer::init()
 	dpy_ = dpy;
 	tex_ = bmp;
 	
-	//glFrontFace(GL_CCW);
+	glFrontFace(GL_CCW);
 	
 	vbo_ = VBO::Create();
 	
@@ -339,7 +339,7 @@ bool Renderer::setShaderSampler(ALLEGRO_BITMAP *sheet)
 	sstr << "atlas_sheet_";
 	sstr << 0;
 	
-	if(!al_set_shader_sampler(sstr.str().c_str(), sheet, 0))
+	if(!al_set_shader_sampler(sstr.str().c_str(), sheet, 2))
 	{
 		Debug("failed to set sampler %s", sstr.str().c_str());
 		return false;

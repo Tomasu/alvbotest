@@ -10,9 +10,9 @@ uniform sampler2D atlas_sheet_0;
 //uniform sampler2D atlas_sheet_2;
 //uniform sampler2D atlas_sheet_3;
 
-varying vec4 varying_color;
+//varying vec4 varying_color;
 varying vec2 varying_texcoord;
-varying float varying_tx_page;
+//varying float varying_tx_page;
 
 void main()
 {
