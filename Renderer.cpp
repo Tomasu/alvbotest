@@ -265,6 +265,7 @@ void Renderer::draw()
 	al_draw_bitmap(resManager_->getAtlas()->getSheet(0)->alBitmap(), 0, 0, 0);
 	*/
 	
+	glBindVertexArray(vao_);
 	if(!al_use_shader(prg_))
 	{
 		Debug("failed to use shader");
@@ -277,9 +278,8 @@ void Renderer::draw()
 	al_rotate_transform_3d(&trans, cam_.rx, cam_.ry, cam_.rz, cam_.ra);
 	al_translate_transform_3d(&trans, cam_.x, cam_.y, cam_.z);
 	al_use_transform(&trans);
-	glBindVertexArray(vao_);
 	
-	//setShaderSampler(tex_);
+	setShaderSampler(tex_);
 	vbo_->draw(tex_);
 	
 	//al_use_shader(nullptr);
@@ -339,7 +339,7 @@ bool Renderer::setShaderSampler(ALLEGRO_BITMAP *sheet)
 	sstr << "atlas_sheet_";
 	sstr << 0;
 	
-	if(!al_set_shader_sampler(sstr.str().c_str(), sheet, 1))
+	if(!al_set_shader_sampler(sstr.str().c_str(), sheet, 0))
 	{
 		Debug("failed to set sampler %s", sstr.str().c_str());
 		return false;

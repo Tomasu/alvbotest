@@ -92,7 +92,7 @@ VBO *VBO::Create()
 	}*/
 	
 	Cube *cube = Cube::Create();
-	float tx_fact = 0.0, tx_page = 1.0, tx_x = 0.0, tx_y = 0.0;
+	float tx_fact = 1.0, tx_page = 1.0, tx_x = 0.0, tx_y = 0.0;
 	uint32_t num_idx = cube->toVerticies(dptr, xPos, zPos, y, tx_fact, tx_x, tx_y, tx_page);
 	total_size += num_idx;
 	

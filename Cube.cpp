@@ -88,6 +88,10 @@ uint32_t Cube::toVerticies(float *buff, double xoff, double zoff, double yoff, d
 	// range = (lowest - highest) * -1 == 1
 	// offset = 0 - lowest == .5
 	
+	// for 1/-1
+	// range = (-1 - 1) * -1 == 2
+	// offset = 0 - -2 == 2
+	
 	float *ptr = buff;
 	for(int i = 0; i < NUM_VERTS; i++)
 	{
@@ -95,9 +99,9 @@ uint32_t Cube::toVerticies(float *buff, double xoff, double zoff, double yoff, d
 		*ptr = cube1[idx] + xoff; ptr++;
 		*ptr = cube1[idx+1] + yoff; ptr++;
 		*ptr = cube1[idx+2] + zoff; ptr++;
-		*ptr = (cube1[idx] + 0.5) * tx_fact + tx_x; ptr++;
-		*ptr = (cube1[idx+1] + 0.5) * tx_fact + tx_y; ptr++;
-		*ptr = tx_page;
+		*ptr = (cube1[idx] + 2.0) * tx_fact + tx_x; ptr++;
+		*ptr = (cube1[idx+1] + 2.0) * tx_fact + tx_y; ptr++;
+		*ptr = tx_page; ptr++;
 		
 		//Debug("v[%i]: %f,%f,%f,%f,%f,%f", *(ptr-5), *(ptr-4), *(ptr-3), *(ptr-2), *(ptr-1), *ptr);
 	}
