@@ -121,7 +121,7 @@ bool Renderer::init()
 	
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
+	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_CULL_FACE);
 
 	queue_ = queue;
@@ -132,6 +132,9 @@ bool Renderer::init()
 	glFrontFace(GL_CCW);
 	
 	vbo_ = VBO::Create();
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	
 	// initial clear display
 	// make things look purdy
@@ -246,6 +249,7 @@ void Renderer::setupProjection(ALLEGRO_TRANSFORM *m)
 void Renderer::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 
 	//ALLEGRO_STATE state;
 	//al_store_state(&state, ALLEGRO_STATE_TRANSFORM);
